@@ -23,8 +23,6 @@ class DatabaseSeeder extends Seeder {
 		$this->call('Forum_support_statusTableSeeder');
 		$this->call('Message_typesTableSeeder');
 		$this->call('MessageFoldersTableSeeder');
-		$this->call('PreferencesTableSeeder');
-		$this->call('Preferences_usersTableSeeder');
 	}
 
 }

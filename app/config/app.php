@@ -36,7 +36,7 @@ return array(
 	|
 	*/
 
-	'siteName' => 'Your Site',
+	'siteName' => 'Codex',
 	'siteIcon' => null,
 
 	/*
@@ -157,7 +157,7 @@ return array(
 	|
 	*/
 
-	'key' => 'qmt2Dv8gK1wtUcnSP9LABIwzYoeFJ1NB',
+	'key' => 'r6HpeaF1F3iZAkMCAOle62rZTyclp72Q',
 
 	/*
 	|--------------------------------------------------------------------------
