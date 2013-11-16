@@ -27,7 +27,8 @@ Route::group(array('before' => 'auth'), function()
  *******************************************************************/
 Route::group(array('before' => 'auth|permission:GAME_MASTER'), function()
 {
-	Route::controller('game/master', 'Game_MasterController');
+	Route::controller('game/master/rules',	'Game_Master_RulesController');
+	Route::controller('game/master',		'Game_MasterController');
 });
 
 /********************************************************************

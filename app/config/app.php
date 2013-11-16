@@ -50,7 +50,7 @@ return array(
 	|
 	*/
 
-	'primaryRepo' => 'LaravelBase',
+	'primaryRepo' => 'Codex',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -62,6 +62,7 @@ return array(
 	*/
 
 	'allRepos' => array(
+			'Codex' => 'Codex',
 			'stygianvault' => 'StygianVault',
 			'AHScoreboard' => 'AH Scoreboard',
 			'dev-toolbox' => 'Dev-Toolbox',
