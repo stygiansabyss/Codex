@@ -13,9 +13,17 @@ class CreateCharactersTable extends Migration {
 	public function up()
 	{
 		Schema::create('characters', function(Blueprint $table) {
-			$table->increments('id');
-			
+			$table->string('uniqueId', 10);
+			$table->primary('uniqueId');
+			$table->string('class_id', 10)->nullable()->index();
+			$table->string('career_id', 10)->nullable()->index();
+			$table->string('race_id', 10)->nullable()->index();
+			$table->string('name');
+			$table->string('alias')->nullable();
+			$table->integer('damage')->nullable();
+			$table->integer('spellPointsUsed')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

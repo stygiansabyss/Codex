@@ -23,6 +23,14 @@ Route::group(array('before' => 'auth'), function()
 });
 
 /********************************************************************
+ * Access to game Master
+ *******************************************************************/
+Route::group(array('before' => 'auth|permission:GAME_MASTER'), function()
+{
+	Route::controller('game/master', 'Game_MasterController');
+});
+
+/********************************************************************
  * Access to forum moderation
  *******************************************************************/
 Route::group(array('before' => 'auth|permission:FORUM_MOD'), function()

@@ -13,9 +13,16 @@ class CreateBasesTable extends Migration {
 	public function up()
 	{
 		Schema::create('bases', function(Blueprint $table) {
-			$table->increments('id');
-			
+			$table->string('uniqueId', 10);
+			$table->primary('uniqueId');
+			$table->string('name');
+			$table->string('keyName')->index();
+			$table->string('fullName')->nullable();
+			$table->text('description')->nullable();
+			$table->string('calculation');
+			$table->integer('value')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
