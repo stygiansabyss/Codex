@@ -20,7 +20,6 @@ class CreateBasesTable extends Migration {
 			$table->string('fullName')->nullable();
 			$table->text('description')->nullable();
 			$table->string('calculation');
-			$table->integer('value')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

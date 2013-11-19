@@ -172,6 +172,12 @@ h1,h2,h3,h4,h5,h6 {
         margin-right: -34px;
         display: block;
         .box-shadow(~"rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset");
+        a {
+            color: #000;
+            &:hover {
+                color: #000 !important;
+            }
+        }
     }
     .well-title-bottom {
         background: @primaryColor;
@@ -189,6 +195,12 @@ h1,h2,h3,h4,h5,h6 {
         display: block;
         height: 20px;
         .box-shadow(~"rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset");
+        a {
+            color: #000;
+            &:hover {
+                color: #000 !important;
+            }
+        }
     }
     .well-title-info {
         background: #9081b0;
@@ -213,6 +225,12 @@ h1,h2,h3,h4,h5,h6 {
         margin-right: -14px;
         display: block;
         .box-shadow(~"rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset");
+        a {
+            color: #000;
+            &:hover {
+                color: #000 !important;
+            }
+        }
     }
     .well-title-bottom {
         background: @primaryColor;
@@ -245,7 +263,7 @@ h1,h2,h3,h4,h5,h6 {
     padding: 0px 10px;
     .box-shadow(~"rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset");
     &:hover {
-        background: #6e9da4;
+        background: @darkerPrimary;
     }
     a {
         color: #000;
@@ -730,6 +748,18 @@ td {
 .navbar .nav > .active > a:focus {
     color: @primaryColor;
 }
+.dropdown-menu {
+    background-color: darken(@grey, 10%);
+    & > li {
+        & > a {
+            color: @primaryColor;
+        }
+        & > a:hover {
+            .linear-gradient-top(@primaryColor, @primaryColor, 0, lighten(@primaryColor, 10%), 100);
+            color: darken(@grey, 10%) !important;
+        }
+    }
+}
 .sub-nav {
     margin-bottom: 10px;
     margin-left: 0;
@@ -882,6 +912,21 @@ td {
 }
 .badge-important {
     background-color: @errorColor;
+}
+.badge-important {
+    background-color: @errorColor;
+}
+.label-enhancement {
+    background-color: @darkPrimary;
+}
+.label-question {
+    background-color: @infoColor;
+}
+.label-bug {
+    background-color: @errorColor;
+}
+.label-duplicate, .label-invalid, .label-wontfix {
+    background-color: #aaa;
 }
 /*
 /////////////////////////////////////////////////////// Utopian Menu /////////////////////////////////////////////////////////
@@ -1195,6 +1240,7 @@ ul {
     background-image: -ms-linear-gradient(top, @color1 @stop1, @color2 @stop2);
     background-image: -o-linear-gradient(top, @color1 @stop1, @color2 @stop2);
     background-image: linear-gradient(top, @color1 @stop1, @color2 @stop2);
+    background-image: linear-gradient(to bottom, @color1, @color2);
 }
 .linear-gradient-top(@default,@color1,@stop1,@color2,@stop2,@color3,@stop3) {
     background-color: @default;
@@ -1204,6 +1250,7 @@ ul {
     background-image: -ms-linear-gradient(top, @color1 @stop1, @color2 @stop2, @color3 @stop3);
     background-image: -o-linear-gradient(top, @color1 @stop1, @color2 @stop2, @color3 @stop3);
     background-image: linear-gradient(top, @color1 @stop1, @color2 @stop2, @color3 @stop3);
+    background-image: linear-gradient(to bottom, @color1, @color2);
 }
 .linear-gradient-top(@default,@color1,@stop1,@color2,@stop2,@color3,@stop3,@color4,@stop4) {
     background-color: @default;
@@ -1213,6 +1260,7 @@ ul {
     background-image: -ms-linear-gradient(top, @color1 @stop1, @color2 @stop2, @color3 @stop3, @color4 @stop4);
     background-image: -o-linear-gradient(top, @color1 @stop1, @color2 @stop2, @color3 @stop3, @color4 @stop4);
     background-image: linear-gradient(top, @color1 @stop1, @color2 @stop2, @color3 @stop3, @color4 @stop4);
+    background-image: linear-gradient(to bottom, @color1, @color2);
 }
 .linear-gradient-left(@default,@color1,@stop1,@color2,@stop2) {
     background-color: @default;

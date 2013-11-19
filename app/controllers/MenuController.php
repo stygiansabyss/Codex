@@ -29,6 +29,12 @@ class MenuController extends Core_BaseController
 				}
 			}
 
+			// Game Master
+			if ($this->hasPermission('GAME_MASTER')) {
+				$this->menu->addMenuItem('Game Master', 'game/master', null, 2)
+						   ->addMenuChild('Game Master', 'Rules', 'game/master/rules');
+			}
+
 			// User Menu
 			$this->menu->addMenuItem($this->activeUser->username, 'user/view/'. $this->activeUser->id, null, null, 'right')
 					   ->addMenuChild($this->activeUser->username, 'My Messages... ('. $this->activeUser->unreadMessageCount .')', 'messages')

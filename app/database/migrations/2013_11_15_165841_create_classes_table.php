@@ -19,6 +19,7 @@ class CreateClassesTable extends Migration {
 			$table->string('keyName')->index();
 			$table->string('fullName')->nullable();
 			$table->text('description')->nullable();
+			$table->boolean('startingSpellsFlag')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
 		});

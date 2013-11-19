@@ -13,7 +13,8 @@ class CreateStatsTable extends Migration {
 	public function up()
 	{
 		Schema::create('stats', function(Blueprint $table) {
-			$table->increments('id');
+			$table->string('uniqueId', 10);
+			$table->primary('uniqueId');
 			$table->string('name');
 			$table->string('keyName')->index();
 			$table->string('fullName')->nullable();

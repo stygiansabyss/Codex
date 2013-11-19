@@ -15,13 +15,15 @@ class CreateCharactersTable extends Migration {
 		Schema::create('characters', function(Blueprint $table) {
 			$table->string('uniqueId', 10);
 			$table->primary('uniqueId');
-			$table->string('class_id', 10)->nullable()->index();
-			$table->string('career_id', 10)->nullable()->index();
-			$table->string('race_id', 10)->nullable()->index();
+			$table->string('user_id', 10)->index();
 			$table->string('name');
+			$table->string('color');
 			$table->string('alias')->nullable();
 			$table->integer('damage')->nullable();
 			$table->integer('spellPointsUsed')->nullable();
+			$table->boolean('hiddenFlag')->default(0)->index();
+			$table->boolean('activeFlag')->default(0)->index();
+			$table->boolean('approvedFlag')->default(0)->index();
 			$table->timestamps();
 			$table->softDeletes();
 		});
