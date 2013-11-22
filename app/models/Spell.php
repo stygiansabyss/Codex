@@ -1,13 +1,20 @@
 <?php
 
-class CharacterClass extends BaseModel {
+class Spell extends BaseModel {
 
 	/********************************************************************
 	 * Declarations
 	 *******************************************************************/
-	protected $table      = 'classes';
+	protected $table      = 'spells';
 	protected $primaryKey = 'uniqueId';
 	public $incrementing  = false;
+
+	/**
+	 * Soft Delete users instead of completely removing them
+	 *
+	 * @var bool $softDelete Whether to delete or soft delete
+	 */
+	protected $softDelete = true;
 
 	/********************************************************************
 	 * Aware validation rules
@@ -24,6 +31,10 @@ class CharacterClass extends BaseModel {
 	/********************************************************************
 	 * Relationships
 	 *******************************************************************/
+	public function spellClass()
+	{
+		return $this->belongsTo('Spell_Class', 'spell_class_id');
+	}
 
 	/********************************************************************
 	 * Model Events
@@ -32,9 +43,14 @@ class CharacterClass extends BaseModel {
 	/********************************************************************
 	 * Getter and Setter methods
 	 *******************************************************************/
-	public function getStartingSpellsAttribute()
+	public function getClassNameAttribute()
 	{
-		return $this->startingSpellsFlag == 1 ? 'Yes' : 'No';
+		return $this->spellClass->name;
+	}
+
+	public function getLostSpellAttribute()
+	{
+		return $this->lostSpellFlag == 1 ? 'Yes' : null;
 	}
 
 	/********************************************************************

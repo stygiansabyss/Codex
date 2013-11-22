@@ -32,7 +32,11 @@ class MenuController extends Core_BaseController
 			// Game Master
 			if ($this->hasPermission('GAME_MASTER')) {
 				$this->menu->addMenuItem('Game Master', 'game/master', null, 2)
-						   ->addMenuChild('Game Master', 'Rules', 'game/master/rules');
+						   ->addMenuChild('Game Master', 'Rules', 'game/master/rules')
+						   ->addChildChild('Game Master', 'Rules', 'Core Rules', 'game/master/rules')
+						   ->addChildChild('Game Master', 'Rules', 'Races', 'game/master/races')
+						   ->addChildChild('Game Master', 'Rules', 'Skills', 'game/master/skills')
+						   ->addChildChild('Game Master', 'Rules', 'Spells', 'game/master/spells');
 			}
 
 			// User Menu

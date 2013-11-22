@@ -10,6 +10,9 @@ class Game_MasterController extends BaseController {
 		$forum       = new Forum;
 		$recentPosts = $forum->recentPosts();
 
+		$entities = Entity::orderByNameAsc()->get();
+
 		$this->setViewData('recentPosts', $recentPosts);
+		$this->setViewData('entities', $entities);
 	}
 }

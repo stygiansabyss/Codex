@@ -46,14 +46,38 @@
 		<div class="well">
 			<div class="well-title">
 				<a class="accordion-toggle" data-toggle="collapse" href="#collapseEntities" style="color: #000;" onClick="$(this).children().toggleClass('fa fa-chevron-down').toggleClass('fa fa-chevron-up');">
-					Entities <i class="fa fa-chevron-down"></i>
+					Entities ({{ $entities->count() }}) <i class="fa fa-chevron-down"></i>
 				</a>
 				<div class="well-btn well-btn-right">
-					<?=HTML::linkIcon('game/entity/add/', 'fa fa-plus')?>
+					<?=HTML::linkIcon('game/master/character/entity/add/', 'fa fa-plus')?>
 				</div>
 			</div>
 			<div id="collapseEntities" class="accordion-body collapse">
-				ENTITIES PLACEHOLDER
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Active</th>
+							<th>Hidden</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($entities as $entity)
+							<tr>
+								<td>{{ $entity->name }}</td>
+								<td>{{ $entity->active }}</td>
+								<td>{{ $entity->hidden }}</td>
+								<td>
+									<div class="btn-group">
+										{{ HTML::link('/game/master/character/entity/edit/'. $entity->id, 'Edit', array('class' => 'btn btn-mini btn-primary')) }}
+										{{ HTML::link('/game/master/character/entity/delete/'. $entity->id, 'Delete', array('class' => 'confirm-remove btn btn-mini btn-danger')) }}
+									</div>
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<div class="well">

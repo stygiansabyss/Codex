@@ -111,7 +111,7 @@ h1,h2,h3,h4,h5,h6 {
     color: @primaryColor;
 }
 .text-primary {
-    color: @primaryColor;
+    color: @primaryColor !important;
 }
 .text-info {
   color: @infoColor !important;
@@ -557,6 +557,7 @@ td {
     background-color: @darkPrimary !important;
     color: #ffffff;
     .btn-gradient(@primaryColor, @darkPrimary);
+    border: none;
 }
 .btn-primary:hover,
 .btn-primary:active,
@@ -565,10 +566,25 @@ td {
 .btn-primary[disabled] {
     background-color: @darkPrimary;
 }
+.btn-default, .fuelux .btn-default {
+    background-color: @darkPrimary !important;
+    color: #ffffff;
+    .btn-gradient(@primaryColor, @darkPrimary);
+    border: none;
+}
+.btn-default:hover,
+.btn-default:active,
+.btn-default.active,
+.btn-default.disabled,
+.btn-default[disabled] {
+    background-color: @darkPrimary;
+    border: none;
+}
 .btn-warning {
     background-color: @darkWarning !important;
     color: #ffffff;
     .btn-gradient(@warningColor, @darkWarning);
+    border: none;
 }
 .btn-warning:hover,
 .btn-warning:active,
@@ -581,6 +597,7 @@ td {
     background-color: @darkError !important;
     color: #ffffff;
     .btn-gradient(@errorColor, @darkError);
+    border: none;
 }
 .btn-danger:hover,
 .btn-danger:active,
@@ -593,6 +610,7 @@ td {
     background-color: @darkSuccess !important;
     color: #ffffff;
     .btn-gradient(@successColor, @darkSuccess);
+    border: none;
 }
 .btn-success:hover,
 .btn-success:active,
@@ -605,6 +623,7 @@ td {
     background-color: @darkInfo !important;
     color: #ffffff;
     .btn-gradient(@infoColor, @darkInfo);
+    border: none;
 }
 .btn-info:hover,
 .btn-info:active,
@@ -617,6 +636,7 @@ td {
     background-color: #222222 !important;
     color: #ffffff;
     .btn-gradient(#444444, #222222);
+    border: none;
 }
 .btn-inverse:hover,
 .btn-inverse:active,
@@ -944,6 +964,13 @@ td {
         background-color: rgba(0, 0, 0, 0.3);
         border: 0;
         height: 46px;
+        .actions {
+            box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+            background: #202020;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 0;
+            z-index: 500;
+        }
         ul {
             li {
                 height: 45px;
@@ -968,7 +995,7 @@ td {
                     }
                 }
                 &.complete {
-                    color: @successColor;
+                    color: @darkerPrimary;
                     background: @darkPrimary;
                     &:hover {
                         cursor: pointer;

@@ -20,6 +20,9 @@ Route::group(array('before' => 'auth'), function()
 	Route::controller('messages', 'Core_MessageController');
 	Route::controller('chat'	, 'Core_ChatController');
 	Route::controller('github'	, 'Core_GithubController');
+
+	Route::controller('characters/create'	, 'Character_CreateController');
+	Route::controller('characters'			, 'CharacterController');
 });
 
 /********************************************************************
@@ -27,8 +30,13 @@ Route::group(array('before' => 'auth'), function()
  *******************************************************************/
 Route::group(array('before' => 'auth|permission:GAME_MASTER'), function()
 {
-	Route::controller('game/master/rules',	'Game_Master_RulesController');
-	Route::controller('game/master',		'Game_MasterController');
+	Route::controller('game/master/rules',				'Game_Master_RulesController');
+	Route::controller('game/master/skills',				'Game_Master_SkillController');
+	Route::controller('game/master/spells',				'Game_Master_SpellController');
+	Route::controller('game/master/races',				'Game_Master_RaceController');
+	Route::controller('game/master/character/entity',	'Game_Master_Character_EntityController');
+	Route::controller('game/master/character',			'Game_Master_CharacterController');
+	Route::controller('game/master',					'Game_MasterController');
 });
 
 /********************************************************************
@@ -52,7 +60,7 @@ Route::group(array('before' => 'auth|permission:FORUM_ADMIN'), function()
  *******************************************************************/
 Route::group(array('before' => 'auth|permission:FORUM_ACCESS'), function()
 {
-	Route::controller('forum/post'		, 'Core_Forum_PostController');
+	Route::controller('forum/post'		, 'Forum_PostController');
 	Route::controller('forum/board'		, 'Core_Forum_BoardController');
 	Route::controller('forum/category'	, 'Core_Forum_CategoryController');
 	Route::controller('forum'			, 'Core_ForumController');

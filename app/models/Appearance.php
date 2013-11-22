@@ -9,6 +9,13 @@ class Appearance extends BaseModel {
 	protected $primaryKey = 'uniqueId';
 	public $incrementing  = false;
 
+	/**
+	 * Soft Delete users instead of completely removing them
+	 *
+	 * @var bool $softDelete Whether to delete or soft delete
+	 */
+	protected $softDelete = true;
+
 	/********************************************************************
 	 * Aware validation rules
 	 *******************************************************************/

@@ -7,10 +7,22 @@ class Game_Master_RulesController extends BaseController {
 	{
 		$this->subMenu->addMenuItem('Game Master', 'game/master');
 		$this->subMenu->addMenuItem('Rules', 'game/master/rules');
+		$this->subMenu->addMenuItem('Races', 'game/master/races');
+		$this->subMenu->addMenuItem('Skills', 'game/master/skills');
+		$this->subMenu->addMenuItem('Spells', 'game/master/spells');
+
 		if ($baseId != null) {
 			$base = Base::find($baseId);
 			$base->getCalculation();
 		}
+
+		$spellClasses = Spell_Class::orderByNameAsc()->get();
+		$skillLists   = Skill_List::orderByNameAsc()->get();
+		$races        = Race::orderByNameAsc()->get();
+
+		$this->setViewData('spellClasses', $spellClasses);
+		$this->setViewData('skillLists', $skillLists);
+		$this->setViewData('races', $races);
 	}
 
 	public function getStats()
@@ -148,72 +160,6 @@ class Game_Master_RulesController extends BaseController {
 		return Redirect::to('/game/master/rules#bases');
 	}
 
-	public function getSkills()
-	{
-		$skills = Skill::orderByNameAsc()->get();
-
-		// Set up the one page crud
-		$settings = new Utility_Crud();
-		$settings->setTitle('Skills')
-				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/statdelete/')
-				 ->setDeleteProperty('id')
-				 ->setResources($skills);
-
-		// Add the display columns
-		$settings->addDisplayField('name')
-				 ->addDisplayField('fullName');
-
-		// Add the form fields
-		$settings->addFormField('name', 'text')
-				 ->addFormField('keyName', 'text')
-				 ->addFormField('fullName', 'text')
-				 ->addFormField('description', 'textarea');
-
-		$this->setViewPath('core.helpers.crud');
-		$this->setViewData('settings', $settings);
-	}
-
-	public function postSkills()
-	{
-		$this->skipView();
-
-		// Set the input data
-		$input = e_array(Input::all());
-
-		if ($input != null) {
-			// Get the object
-			$skill              = (isset($input['id']) && $input['id'] != null ? Skill::find($input['id']) : new Skill);
-			$skill->name        = $input['name'];
-			$skill->keyName     = $input['keyName'];
-			$skill->fullName    = $input['fullName'];
-			$skill->description = $input['description'];
-
-			// Attempt to save the object
-			$this->save($skill);
-
-			// Handle errors
-			if ($this->errorCount() > 0) {
-				$this->ajaxResponse->addErrors($this->getErrors());
-			} else {
-				$this->ajaxResponse->setStatus('success')->addData('resource', $skill->toArray());
-			}
-
-			// Send the response
-			return $this->ajaxResponse->sendResponse();
-		}
-	}
-
-	public function getSkilldelete($skillId)
-	{
-		$this->skipView();
-
-		$skill = Skill::find($skillId);
-		$skill->delete();
-
-		return Redirect::to('/game/master/rules#skills');
-	}
-
 	public function getVitals()
 	{
 		$vitals = Vital::orderByNameAsc()->get();
@@ -283,33 +229,32 @@ class Game_Master_RulesController extends BaseController {
 		return Redirect::to('/game/master/rules#vitals');
 	}
 
-	public function getRaces()
+	public function getAppearances()
 	{
-		$races = Race::orderByNameAsc()->get();
+		$appearances = Appearance::orderByNameAsc()->get();
 
 		// Set up the one page crud
 		$settings = new Utility_Crud();
-		$settings->setTitle('Races')
+		$settings->setTitle('Appearances')
 				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/racedelete/')
+				 ->setDeleteLink('/game/master/rules/careerdelete/')
 				 ->setDeleteProperty('id')
-				 ->setResources($races);
+				 ->setResources($appearances);
 
 		// Add the display columns
 		$settings->addDisplayField('name')
-				 ->addDisplayField('fullName');
+				 ->addDisplayField('keyName');
 
 		// Add the form fields
 		$settings->addFormField('name', 'text')
 				 ->addFormField('keyName', 'text')
-				 ->addFormField('fullName', 'text')
 				 ->addFormField('description', 'textarea');
 
 		$this->setViewPath('core.helpers.crud');
 		$this->setViewData('settings', $settings);
 	}
 
-	public function postRaces()
+	public function postAppearances()
 	{
 		$this->skipView();
 
@@ -318,20 +263,19 @@ class Game_Master_RulesController extends BaseController {
 
 		if ($input != null) {
 			// Get the object
-			$race              = (isset($input['id']) && $input['id'] != null ? Race::find($input['id']) : new Race);
-			$race->name        = $input['name'];
-			$race->keyName     = $input['keyName'];
-			$race->fullName    = $input['fullName'];
-			$race->description = $input['description'];
+			$appearance              = (isset($input['id']) && $input['id'] != null ? Appearance::find($input['id']) : new Appearance);
+			$appearance->name        = $input['name'];
+			$appearance->keyName     = $input['keyName'];
+			$appearance->description = $input['description'];
 
 			// Attempt to save the object
-			$this->save($race);
+			$this->save($appearance);
 
 			// Handle errors
 			if ($this->errorCount() > 0) {
 				$this->ajaxResponse->addErrors($this->getErrors());
 			} else {
-				$this->ajaxResponse->setStatus('success')->addData('resource', $race->toArray());
+				$this->ajaxResponse->setStatus('success')->addData('resource', $appearance->toArray());
 			}
 
 			// Send the response
@@ -339,19 +283,19 @@ class Game_Master_RulesController extends BaseController {
 		}
 	}
 
-	public function getRacedelete($raceId)
+	public function getAppearancedelete($appearanceId)
 	{
 		$this->skipView();
 
-		$race = Race::find($raceId);
-		$race->delete();
+		$appearance = Appearance::find($appearanceId);
+		$appearance->delete();
 
-		return Redirect::to('/game/master/rules#races');
+		return Redirect::to('/game/master/rules#appearances');
 	}
 
 	public function getClasses()
 	{
-		$classes = CharacterClass::orderByNameAsc()->get();
+		$classes = Character_Class::orderByNameAsc()->get();
 
 		// Set up the one page crud
 		$settings = new Utility_Crud();
@@ -386,7 +330,7 @@ class Game_Master_RulesController extends BaseController {
 
 		if ($input != null) {
 			// Get the object
-			$class                     = (isset($input['id']) && $input['id'] != null ? CharacterClass::find($input['id']) : new CharacterClass);
+			$class                     = (isset($input['id']) && $input['id'] != null ? Character_Class::find($input['id']) : new Character_Class);
 			$class->name               = $input['name'];
 			$class->keyName            = $input['keyName'];
 			$class->fullName           = $input['fullName'];
@@ -412,7 +356,7 @@ class Game_Master_RulesController extends BaseController {
 	{
 		$this->skipView();
 
-		$class = CharacterClass::find($classId);
+		$class = Character_Class::find($classId);
 		$class->delete();
 
 		return Redirect::to('/game/master/rules#classes');
@@ -426,7 +370,7 @@ class Game_Master_RulesController extends BaseController {
 			return $career->characterClass->name;
 		});
 
-		$classes = CharacterClass::orderByNameAsc()->get();
+		$classes = Character_Class::orderByNameAsc()->get();
 
 		$classArray = $this->arrayToSelect($classes, 'id', 'name', 'Select a class');
 
@@ -496,69 +440,5 @@ class Game_Master_RulesController extends BaseController {
 		$career->delete();
 
 		return Redirect::to('/game/master/rules#careers');
-	}
-
-	public function getAppearances()
-	{
-		$appearances = Appearance::orderByNameAsc()->get();
-
-		// Set up the one page crud
-		$settings = new Utility_Crud();
-		$settings->setTitle('Appearances')
-				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/careerdelete/')
-				 ->setDeleteProperty('id')
-				 ->setResources($appearances);
-
-		// Add the display columns
-		$settings->addDisplayField('name')
-				 ->addDisplayField('keyName');
-
-		// Add the form fields
-		$settings->addFormField('name', 'text')
-				 ->addFormField('keyName', 'text')
-				 ->addFormField('description', 'textarea');
-
-		$this->setViewPath('core.helpers.crud');
-		$this->setViewData('settings', $settings);
-	}
-
-	public function postAppearances()
-	{
-		$this->skipView();
-
-		// Set the input data
-		$input = e_array(Input::all());
-
-		if ($input != null) {
-			// Get the object
-			$appearance              = (isset($input['id']) && $input['id'] != null ? Appearance::find($input['id']) : new Appearance);
-			$appearance->name        = $input['name'];
-			$appearance->keyName     = $input['keyName'];
-			$appearance->description = $input['description'];
-
-			// Attempt to save the object
-			$this->save($appearance);
-
-			// Handle errors
-			if ($this->errorCount() > 0) {
-				$this->ajaxResponse->addErrors($this->getErrors());
-			} else {
-				$this->ajaxResponse->setStatus('success')->addData('resource', $appearance->toArray());
-			}
-
-			// Send the response
-			return $this->ajaxResponse->sendResponse();
-		}
-	}
-
-	public function getAppearancedelete($appearanceId)
-	{
-		$this->skipView();
-
-		$appearance = Appearance::find($appearanceId);
-		$appearance->delete();
-
-		return Redirect::to('/game/master/rules#appearances');
 	}
 }

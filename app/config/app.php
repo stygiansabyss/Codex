@@ -208,7 +208,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Juy\Profiler\Providers\ProfilerServiceProvider',
-		'Intervention\Image\ImageServiceProvider'
+		'Intervention\Image\ImageServiceProvider',
+		'Core\View\ViewServiceProvider',
 	),
 
 	/*
@@ -270,7 +271,7 @@ return array(
 		'Session'                     => 'Illuminate\Support\Facades\Session',
 		'Str'                         => 'Illuminate\Support\Str',
 		'URL'                         => 'Illuminate\Support\Facades\URL',
-		'View'                        => 'Illuminate\Support\Facades\View',
+		'View'                        => 'Core\View\ViewFacade',
 		'SocketIOClient'              => 'ElephantIO\Client',
 		'Image'                       => 'Intervention\Image\Facades\Image',
 		'Github'                      => 'Github\Client',
@@ -281,12 +282,10 @@ return array(
 		'Chat_Room'                   => 'Core\Chat_Room',
 		'Forum_Board'                 => 'Core\Forum_Board',
 		'Forum_Board_Type'            => 'Core\Forum_Board_Type',
-		'Forum_Category'              => 'Core\Forum_Category',
 		'Forum_Category_Type'         => 'Core\Forum_Category_Type',
 		'Forum_Moderation'            => 'Core\Forum_Moderation',
 		'Forum_Moderation_Log'        => 'Core\Forum_Moderation_Log',
 		'Forum_Moderation_Reply'      => 'Core\Forum_Moderation_Reply',
-		'Forum_Post'                  => 'Core\Forum_Post',
 		'Forum_Post_Edit'             => 'Core\Forum_Post_Edit',
 		'Forum_Post_Status'           => 'Core\Forum_Post_Status',
 		'Forum_Post_Type'             => 'Core\Forum_Post_Type',
