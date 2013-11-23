@@ -278,7 +278,6 @@ return array(
 		'Chat'                        => 'Core\Chat',
 		'Forum'                       => 'Core\Forum',
 		'Message'                     => 'Core\Message',
-		'User'                        => 'Core\User',
 		'Chat_Room'                   => 'Core\Chat_Room',
 		'Forum_Board'                 => 'Core\Forum_Board',
 		'Forum_Board_Type'            => 'Core\Forum_Board_Type',

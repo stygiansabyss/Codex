@@ -10,7 +10,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Skill Lists')
 				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/skilllistdelete/')
+				 ->setDeleteLink('/game/master/skills/skilllistdelete/')
 				 ->setDeleteProperty('id')
 				 ->setResources($skillLists);
 
@@ -63,7 +63,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$skillList = Skill_List::find($skillListId);
 		$skillList->delete();
 
-		return Redirect::to('/game/master/rules#skill-lists');
+		return Redirect::to('/game/master/skills#skill-lists');
 	}
 
 	public function getSkillListPercentiles()
@@ -89,7 +89,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Skill List Percentiles')
 				 ->setSortProperty('percentageStart')
-				 ->setDeleteLink('/game/master/rules/skilllistpercentiledelete/')
+				 ->setDeleteLink('/game/master/skills/skilllistpercentiledelete/')
 				 ->setDeleteProperty('id')
 				 ->setPaginationFlag(true)
 				 ->setResources($skillListPercentiles);
@@ -156,7 +156,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$skillList = Skill_List_Percentile::find($skillListId);
 		$skillList->delete();
 
-		return Redirect::to('/game/master/rules#skill-list-percentiles');
+		return Redirect::to('/game/master/skills#skill-list-percentiles');
 	}
 
 	public function getSkills()
@@ -172,7 +172,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Skills')
 				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/statdelete/')
+				 ->setDeleteLink('/game/master/skills/skilldelete/')
 				 ->setDeleteProperty('id')
 				 ->setPaginationFlag(true)
 				 ->setResources($skills);
@@ -233,7 +233,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$skill = Skill::find($skillId);
 		$skill->delete();
 
-		return Redirect::to('/game/master/rules#skills');
+		return Redirect::to('/game/master/skills#skills');
 	}
 
 	public function getAbilities()
@@ -247,7 +247,7 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Abilities')
 				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/abilitydelete/')
+				 ->setDeleteLink('/game/master/skills/abilitydelete/')
 				 ->setDeleteProperty('id')
 				 ->setPaginationFlag(true)
 				 ->setResources($abilities);
@@ -305,6 +305,6 @@ class Game_Master_SkillController extends Game_Master_RulesController {
 		$ability = Ability::find($abilityId);
 		$ability->delete();
 
-		return Redirect::to('/game/master/rules#abilities');
+		return Redirect::to('/game/master/skills#abilities');
 	}
 }

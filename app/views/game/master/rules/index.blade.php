@@ -12,7 +12,7 @@
 			<li><a href="javascript: void(0);" class="ajaxLink" id="classes">Classes</a></li>
 			<li><a href="javascript: void(0);" class="ajaxLink" id="careers">Careers</a></li>
 			<li><a href="javascript: void(0);" class="ajaxLink" id="career-spell-classes">Career Spell Classes</a></li>
-			<li><a href="javascript: void(0);" class="ajaxLink" id="career-skills">Career Starting Skills</a></li>
+			<li><a href="javascript: void(0);" class="ajaxLink" id="career-skill-lists">Career Skill Lists</a></li>
 		</ul>
 	</div>
 	<div class="span10">

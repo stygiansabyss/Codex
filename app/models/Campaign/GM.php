@@ -1,27 +1,18 @@
 <?php
 
-class Career extends BaseModel {
+class Campaign_GM extends BaseModel {
 
 	/********************************************************************
 	 * Declarations
 	 *******************************************************************/
-	protected $table      = 'careers';
-	protected $primaryKey = 'uniqueId';
-	public $incrementing  = false;
-
-	/**
-	 * Soft Delete users instead of completely removing them
-	 *
-	 * @var bool $softDelete Whether to delete or soft delete
-	 */
-	protected $softDelete = true;
+	protected $table      = 'campaign_gms';
 
 	/********************************************************************
 	 * Aware validation rules
 	 *******************************************************************/
 	public static $rules = array(
-		'name'        => 'required',
-		'keyName'     => 'required',
+		'campaign_id' => 'required|exists:campaigns,uniqueId',
+		'user_id'     => 'required|exists:users,uniqueId',
 	);
 
 	/********************************************************************
@@ -31,13 +22,13 @@ class Career extends BaseModel {
 	/********************************************************************
 	 * Relationships
 	 *******************************************************************/
-	public function characterClass()
+	public function campaign()
 	{
-		return $this->belongsTo('Character_Class', 'class_id');
+		return $this->belongsTo('Campaign', 'campaign_id');
 	}
-	public function spellClasses()
+	public function gm()
 	{
-		return $this->belongsToMany('Spell_Class', 'career_spell_classes', 'career_id', 'spell_class_id');
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	/********************************************************************
@@ -47,14 +38,6 @@ class Career extends BaseModel {
 	/********************************************************************
 	 * Getter and Setter methods
 	 *******************************************************************/
-	public function getGmApprovalAttribute()
-	{
-		return $this->gmApprovalFlag == 1 ? 'Yes' : 'No';
-	}
-	public function getClassNameAttribute()
-	{
-		return $this->characterClass->name;
-	}
 
 	/********************************************************************
 	 * Extra Methods

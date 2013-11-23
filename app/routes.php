@@ -30,12 +30,20 @@ Route::group(array('before' => 'auth'), function()
  *******************************************************************/
 Route::group(array('before' => 'auth|permission:GAME_MASTER'), function()
 {
+	// Rules
 	Route::controller('game/master/rules',				'Game_Master_RulesController');
 	Route::controller('game/master/skills',				'Game_Master_SkillController');
 	Route::controller('game/master/spells',				'Game_Master_SpellController');
 	Route::controller('game/master/races',				'Game_Master_RaceController');
+
+	// Campaigns
+	Route::controller('game/master/campaign',			'Game_Master_CampaignController');
+
+	// Characters
 	Route::controller('game/master/character/entity',	'Game_Master_Character_EntityController');
 	Route::controller('game/master/character',			'Game_Master_CharacterController');
+
+	// Root
 	Route::controller('game/master',					'Game_MasterController');
 });
 

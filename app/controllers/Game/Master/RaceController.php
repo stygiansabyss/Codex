@@ -10,7 +10,7 @@ class Game_Master_RaceController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Races')
 				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/racedelete/')
+				 ->setDeleteLink('/game/master/races/racedelete/')
 				 ->setDeleteProperty('id')
 				 ->setResources($races);
 
@@ -74,7 +74,7 @@ class Game_Master_RaceController extends Game_Master_RulesController {
 		$race = Race::find($raceId);
 		$race->delete();
 
-		return Redirect::to('/game/master/rules#races');
+		return Redirect::to('/game/master/races#races');
 	}
 
 	public function getRaceStats($raceId)
@@ -94,7 +94,7 @@ class Game_Master_RaceController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Race Stats')
 				 ->setSortProperty('id')
-				 ->setDeleteLink('/game/master/rules/racestatdelete/')
+				 ->setDeleteLink('/game/master/races/racestatdelete/')
 				 ->setDeleteProperty('id')
 				 ->setPaginationFlag('true')
 				 ->setResources($raceStats);
@@ -152,6 +152,6 @@ class Game_Master_RaceController extends Game_Master_RulesController {
 		$raceStat = Race_Stat::find($raceStatId);
 		$raceStat->delete();
 
-		return Redirect::to('/game/master/rules#race-stats');
+		return Redirect::to('/game/master/races#race-stats');
 	}
 }

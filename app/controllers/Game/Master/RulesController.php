@@ -441,4 +441,149 @@ class Game_Master_RulesController extends BaseController {
 
 		return Redirect::to('/game/master/rules#careers');
 	}
+
+	public function getCareerSpellClasses()
+	{
+		$careers      = Career::orderByNameAsc()->get();
+		$spellClasses = Spell_Class::orderByNameAsc()->get();
+
+		$careerArray     = $this->arrayToSelect($careers, 'id', 'name', 'Select a career');
+		$spellClassArray = $this->arrayToSelect($spellClasses, 'id', 'name', 'None');
+
+		// Set up the one page crud
+		$settings = new Utility_Crud();
+		$settings->setTitle('Career Spell Classes')
+				 ->setSortProperty('name')
+				 ->setMulti($careers, 'spellClasses')
+				 ->setMultiColumns(array('Careers', 'Spell Classes'))
+				 ->setMultiDetails(array('name' => 'name', 'field' => 'career_id'))
+				 ->setMultiPropertyDetails(array('name' => 'name', 'field' => 'spell_class_id'));
+
+		// Add the form fields
+		$settings->addFormField('career_id', 'select', $careerArray)
+				 ->addFormField('spell_class_id', 'multiselect', $spellClassArray);
+
+		$this->setViewPath('helpers.crud');
+		$this->setViewData('settings', $settings);
+	}
+
+	public function postCareerSpellClasses()
+	{
+		$this->skipView();
+
+		// Set the input data
+		$input = e_array(Input::all());
+
+		if ($input != null) {
+			// Remove all existing roles
+			$careerSpells = Career_Spell_Class::where('career_id', $input['career_id'])->get();
+
+			if ($careerSpells->count() > 0) {
+				foreach ($careerSpells as $careerSpell) {
+					$careerSpell->delete();
+				}
+			}
+
+			// Add any new roles
+			if (count($input['spell_class_id']) > 0) {
+				foreach ($input['spell_class_id'] as $spellClassId) {
+					if ($spellClassId == '0') continue;
+
+					$careerSpell                 = new Career_Spell_Class;
+					$careerSpell->career_id      = $input['career_id'];
+					$careerSpell->spell_class_id = $spellClassId;
+
+					$this->save($careerSpell);
+				}
+			}
+
+			// Handle errors
+			if ($this->errorCount() > 0) {
+				$this->ajaxResponse->addErrors($this->getErrors());
+			} else {
+				$career = Career::find($input['career_id']);
+
+				$main = $career->toArray();
+				$main['multi'] = $career->spellClasses->id->toJson();
+
+				$this->ajaxResponse->setStatus('success')
+									->addData('resource', $career->spellClasses->toArray())
+									->addData('main', $main);
+			}
+
+			// Send the response
+			return $this->ajaxResponse->sendResponse();
+		}
+	}
+
+	public function getCareerSkillLists()
+	{
+		$careerSkillListss = Career_Skill_List::orderBy('career_id', 'asc')->paginate(20);
+
+		$careers        = Career::orderByNameAsc()->get();
+		$careerArray    = $this->arrayToSelect($careers, 'id', 'name', 'Select a career');
+		$skillLists     = Skill_List::orderByNameAsc()->get();
+		$skillListArray = $this->arrayToSelect($skillLists, 'id', 'name', 'Select a skill list');
+
+		// Set up the one page crud
+		$settings = new Utility_Crud();
+		$settings->setTitle('Career Skill Lists')
+				 ->setSortProperty('career_id')
+				 ->setDeleteLink('/game/master/rules/careerskilllistdelete/')
+				 ->setDeleteProperty('id')
+				 ->setPaginationFlag(true)
+				 ->setResources($careerSkillListss);
+
+		// Add the display columns
+		$settings->addDisplayField('career_name')
+				 ->addDisplayField('skill_list_name')
+				 ->addDisplayField('skill_cap');
+
+		// Add the form fields
+		$settings->addFormField('career_id', 'select', $careerArray)
+				 ->addFormField('skill_list_id', 'select', $skillListArray)
+				 ->addFormField('cap', 'text');
+
+		$this->setViewPath('core.helpers.crud');
+		$this->setViewData('settings', $settings);
+	}
+
+	public function postCareerSkillLists()
+	{
+		$this->skipView();
+
+		// Set the input data
+		$input = e_array(Input::all());
+
+		if ($input != null) {
+			// Get the object
+			$career                = (isset($input['id']) && $input['id'] != null ? Career_Skill_List::find($input['id']) : new Career_Skill_List);
+			$career->career_id     = $input['career_id'];
+			$career->skill_list_id = $input['skill_list_id'];
+			$career->cap           = $input['cap'];
+
+			// Attempt to save the object
+			$this->save($career);
+
+			// Handle errors
+			if ($this->errorCount() > 0) {
+				$this->ajaxResponse->addErrors($this->getErrors());
+			} else {
+				$this->ajaxResponse->setStatus('success')->addData('resource', $career->toArray());
+			}
+
+			// Send the response
+			return $this->ajaxResponse->sendResponse();
+		}
+	}
+
+	public function getCareerskilllistdelete($careerId)
+	{
+		$this->skipView();
+
+		$career = Career_Skill_List::find($careerId);
+		$career->delete();
+
+		return Redirect::to('/game/master/rules#career-skill-lists');
+	}
 }

@@ -31,12 +31,23 @@ class MenuController extends Core_BaseController
 
 			// Game Master
 			if ($this->hasPermission('GAME_MASTER')) {
-				$this->menu->addMenuItem('Game Master', 'game/master', null, 2)
-						   ->addMenuChild('Game Master', 'Rules', 'game/master/rules')
-						   ->addChildChild('Game Master', 'Rules', 'Core Rules', 'game/master/rules')
-						   ->addChildChild('Game Master', 'Rules', 'Races', 'game/master/races')
-						   ->addChildChild('Game Master', 'Rules', 'Skills', 'game/master/skills')
-						   ->addChildChild('Game Master', 'Rules', 'Spells', 'game/master/spells');
+				if ($this->hasPermission('MANAGE_CAMPAIGNS')) {
+					$this->menu->addMenuItem('Campaigns', 'game/master/campaign/manage', null, 2);
+				} else {
+					$this->menu->addMenuItem('Campaigns', null, null, 2);
+				}
+				if ($this->activeUser->campaigns->count() > 0) {
+					foreach ($this->activeUser->campaigns->campaign as $campaign) {
+						$this->menu->addMenuChild('Campaigns', $campaign->name, 'game/master/campaign/'. $campaign->id);
+					}
+				}
+
+				$this->menu->addMenuItem('DMG', null, null, 3)
+						   ->addMenuChild('DMG', 'Rules', null)
+						   ->addChildChild('DMG', 'Rules', 'Core', 'game/master/rules')
+						   ->addChildChild('DMG', 'Rules', 'Races', 'game/master/races')
+						   ->addChildChild('DMG', 'Rules', 'Skills', 'game/master/skills')
+						   ->addChildChild('DMG', 'Rules', 'Spells', 'game/master/spells');
 			}
 
 			// User Menu

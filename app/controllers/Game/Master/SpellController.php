@@ -10,7 +10,7 @@ class Game_Master_SpellController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Spell Classes')
 				 ->setSortProperty('name')
-				 ->setDeleteLink('/game/master/rules/spellclassdelete/')
+				 ->setDeleteLink('/game/master/spells/spellclassdelete/')
 				 ->setDeleteProperty('id')
 				 ->setResources($spellClasses);
 
@@ -63,7 +63,7 @@ class Game_Master_SpellController extends Game_Master_RulesController {
 		$spellClass = Spell_Class::find($spellClassId);
 		$spellClass->delete();
 
-		return Redirect::to('/game/master/rules#spell-classs');
+		return Redirect::to('/game/master/spells#spell-classs');
 	}
 
 	public function getSpells($spellClassId)
@@ -78,7 +78,7 @@ class Game_Master_SpellController extends Game_Master_RulesController {
 		$settings = new Utility_Crud();
 		$settings->setTitle('Spells')
 				 ->setSortProperty('className')
-				 ->setDeleteLink('/game/master/rules/spelldelete/')
+				 ->setDeleteLink('/game/master/spells/spelldelete/')
 				 ->setDeleteProperty('id')
 				 ->setPaginationFlag(true)
 				 ->setResources($spells);
@@ -138,6 +138,6 @@ class Game_Master_SpellController extends Game_Master_RulesController {
 		$spellClass = Spell_Class::find($spellClassId);
 		$spellClass->delete();
 
-		return Redirect::to('/game/master/rules#spell-classs');
+		return Redirect::to('/game/master/spells#spell-classs');
 	}
 }

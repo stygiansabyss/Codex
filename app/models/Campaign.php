@@ -1,11 +1,11 @@
 <?php
 
-class Career extends BaseModel {
+class Campaign extends BaseModel {
 
 	/********************************************************************
 	 * Declarations
 	 *******************************************************************/
-	protected $table      = 'careers';
+	protected $table      = 'campaigns';
 	protected $primaryKey = 'uniqueId';
 	public $incrementing  = false;
 
@@ -31,13 +31,13 @@ class Career extends BaseModel {
 	/********************************************************************
 	 * Relationships
 	 *******************************************************************/
-	public function characterClass()
+	public function gms()
 	{
-		return $this->belongsTo('Character_Class', 'class_id');
+		return $this->hasMany('Campaign_GM', 'campaign_id');
 	}
-	public function spellClasses()
+	public function characters()
 	{
-		return $this->belongsToMany('Spell_Class', 'career_spell_classes', 'career_id', 'spell_class_id');
+		return $this->hasMany('Campaign_Character', 'campaign_id');
 	}
 
 	/********************************************************************
@@ -47,14 +47,6 @@ class Career extends BaseModel {
 	/********************************************************************
 	 * Getter and Setter methods
 	 *******************************************************************/
-	public function getGmApprovalAttribute()
-	{
-		return $this->gmApprovalFlag == 1 ? 'Yes' : 'No';
-	}
-	public function getClassNameAttribute()
-	{
-		return $this->characterClass->name;
-	}
 
 	/********************************************************************
 	 * Extra Methods

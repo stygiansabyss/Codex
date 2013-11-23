@@ -70,8 +70,8 @@
 								<td>{{ $entity->hidden }}</td>
 								<td>
 									<div class="btn-group">
-										{{ HTML::link('/game/master/character/entity/edit/'. $entity->id, 'Edit', array('class' => 'btn btn-mini btn-primary')) }}
-										{{ HTML::link('/game/master/character/entity/delete/'. $entity->id, 'Delete', array('class' => 'confirm-remove btn btn-mini btn-danger')) }}
+										{{ HTML::editButton('/game/master/character/entity/edit/'. $entity->id) }}
+										{{ HTML::deleteButton('/game/master/character/entity/delete/'. $entity->id) }}
 									</div>
 								</td>
 							</tr>
