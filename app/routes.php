@@ -16,10 +16,11 @@ Route::controller('api' , 'Core_ApiVersionOneController');
  *******************************************************************/
 Route::group(array('before' => 'auth'), function()
 {
-	Route::controller('user'	, 'Core_UserController');
-	Route::controller('messages', 'Core_MessageController');
-	Route::controller('chat'	, 'Core_ChatController');
-	Route::controller('github'	, 'Core_GithubController');
+	Route::controller('user/characters'	, 'User_CharacterController');
+	Route::controller('user'			, 'Core_UserController');
+	Route::controller('messages'		, 'Core_MessageController');
+	Route::controller('chat'			, 'Core_ChatController');
+	Route::controller('github'			, 'Core_GithubController');
 
 	Route::controller('characters/create'	, 'Character_CreateController');
 	Route::controller('characters'			, 'CharacterController');

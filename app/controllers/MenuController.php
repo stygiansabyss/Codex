@@ -38,7 +38,7 @@ class MenuController extends Core_BaseController
 				}
 				if ($this->activeUser->campaigns->count() > 0) {
 					foreach ($this->activeUser->campaigns->campaign as $campaign) {
-						$this->menu->addMenuChild('Campaigns', $campaign->name, 'game/master/campaign/'. $campaign->id);
+						$this->menu->addMenuChild('Campaigns', $campaign->name, 'game/master/campaign/view/'. $campaign->id);
 					}
 				}
 
@@ -53,6 +53,7 @@ class MenuController extends Core_BaseController
 			// User Menu
 			$this->menu->addMenuItem($this->activeUser->username, 'user/view/'. $this->activeUser->id, null, null, 'right')
 					   ->addMenuChild($this->activeUser->username, 'My Messages... ('. $this->activeUser->unreadMessageCount .')', 'messages')
+					   ->addMenuChild($this->activeUser->username, 'My Characters', 'user/characters')
 					   ->addMenuChild($this->activeUser->username, 'Edit Profile', 'user/account')
 					   ->addMenuChild($this->activeUser->username, 'Logout', 'logout');
 

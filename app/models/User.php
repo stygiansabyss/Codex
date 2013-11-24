@@ -22,6 +22,11 @@ class User extends Core\User {
 		return $this->hasMany('Campaign_GM', 'user_id');
 	}
 
+	public function characters()
+	{
+		return $this->hasMany('Character', 'user_id');
+	}
+
 	/********************************************************************
 	 * Model Events
 	 *******************************************************************/

@@ -1,11 +1,11 @@
 <?php
 
-class Race extends BaseModel {
+class Character extends BaseModel {
 
 	/********************************************************************
 	 * Declarations
 	 *******************************************************************/
-	protected $table      = 'races';
+	protected $table      = 'characters';
 	protected $primaryKey = 'uniqueId';
 	public $incrementing  = false;
 
@@ -20,9 +20,8 @@ class Race extends BaseModel {
 	 * Aware validation rules
 	 *******************************************************************/
 	public static $rules = array(
-		'name'        => 'required',
-		'keyName'     => 'required',
-		'hpDice'      => 'required',
+		'name'    => 'required',
+		'user_id' => 'required|exists:users,uniqueId'
 	);
 
 	/********************************************************************
@@ -32,9 +31,20 @@ class Race extends BaseModel {
 	/********************************************************************
 	 * Relationships
 	 *******************************************************************/
-	public function stats()
+
+	/**
+	 * Forum Post Relationship
+	 *
+	 * @return Forum_Post[]
+	 */
+	public function posts()
 	{
-		return $this->hasMany('Race_Stat', 'race_id')->with('Stat');
+		return $this->morphMany('Forum_Post', 'morph');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	/********************************************************************
@@ -44,18 +54,30 @@ class Race extends BaseModel {
 	/********************************************************************
 	 * Getter and Setter methods
 	 *******************************************************************/
-	public function getHitDieAttribute()
+	public function getActiveAttribute()
 	{
-		return 'd'. $this->hpDice;
+		return $this->activeFlag == 1 ? 'Yes' : 'No';
+	}
+	public function getHiddenAttribute()
+	{
+		return $this->hiddenFlag == 1 ? 'Yes' : 'No';
+	}
+	public function getApprovedAttribute()
+	{
+		return $this->approvedFlag == 1 ? 'Yes' : 'No';
 	}
 
-	public function getStatsOrderedAttribute()
+	/**
+	 * Get the number of posts from this user
+	 *
+	 */
+	public function getPostsCountAttribute()
 	{
-		$stats = $this->stats->sortBy(function ($stat) {
-			return $stat->stat->name;
-		});
+		$postsCount = $this->posts->count();
+		// $repliesCount = $this->replies->count();
+		// return $postsCount + $repliesCount;
 
-		return $stats;
+		return $postsCount;
 	}
 
 	/********************************************************************

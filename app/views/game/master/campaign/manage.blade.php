@@ -1,7 +1,12 @@
 <div class="row-fluid">
 	<div class="offset1 span10">
 		<div class="well">
-			<div class="well-title">Campaign Management</div>
+			<div class="well-title">
+				Campaign Management
+				<div class="well-btn well-btn-right">
+					{{ HTML::addButton('game/master/campaign/add/') }}
+				</div>
+			</div>
 			{{ HTML::table() }}
 				<thead>
 					<tr>
@@ -20,6 +25,7 @@
 							<td class="text-right">
 								<div class="btn-group">
 									{{ HTML::editButton('/game/master/campaign/edit/'. $campaign->id) }}
+									{{ HTML::deleteButton('/game/master/campaign/delete/'. $campaign->id) }}
 								</div>
 							</td>
 					@endforeach
